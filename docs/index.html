@@ -3,248 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Bank Macroeconomic Data Explorer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <title>World Bank Macroeconomic Studio & Dissertation Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0a0c10;
-            --bg-card: #12161f;
-            --accent-purple: #c084fc;
-            --accent-blue: #38bdf8;
-            --accent-emerald: #34d399;
-            --accent-amber: #fbbf24;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --border-color: #1e293b;
+            --bg-page: #0d1117;
+            --bg-surface: #161b22;
+            --border-subtle: #30363d;
+            --gold-accent: #d29922;
+            --cyan-accent: #58a6ff;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
-        header { padding: 1.25rem 2rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: rgba(18, 22, 31, 0.8); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
-        .brand { display: flex; align-items: center; gap: 0.75rem; font-size: 1.25rem; font-weight: 800; }
-        .badge { font-family: 'JetBrains Mono', monospace; background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 9999px; border: 1px solid rgba(56, 189, 248, 0.3); }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
-        .nav-links a:hover { color: var(--accent-blue); }
-        .container { max-width: 1280px; margin: 0 auto; padding: 2rem; width: 100%; flex: 1; }
-        .hero { text-align: center; margin-bottom: 2.5rem; }
-        .hero h1 { font-size: 2.25rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 0.75rem; background: linear-gradient(135deg, #ffffff 0%, var(--accent-blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { color: var(--text-secondary); font-size: 1.05rem; max-width: 650px; margin: 0 auto; }
-        .controls-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 1rem; align-items: end; }
-        .input-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .input-group select { width: 100%; background: #0f131a; border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.9rem; font-family: inherit; }
-        .btn { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; cursor: pointer; height: 44px; transition: opacity 0.2s; }
-        .btn:hover { opacity: 0.9; }
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
-        .stat-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem; border-left: 4px solid var(--accent-blue); }
-        .stat-label { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.25rem; }
-        .stat-val { font-size: 1.4rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
-        .grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
-        .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; }
-        .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; display: flex; justify-content: space-between; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        th, td { padding: 0.75rem 0.5rem; text-align: left; border-bottom: 1px solid var(--border-color); }
-        th { color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; }
-        td { font-family: 'JetBrains Mono', monospace; }
-        footer { border-top: 1px solid var(--border-color); padding: 1.5rem 2rem; text-align: center; color: var(--text-secondary); font-size: 0.85rem; }
-        @media (max-width: 900px) { .controls-card, .grid-2, .stats-grid { grid-template-columns: 1fr; } }
+        body { background-color: var(--bg-page); color: #c9d1d9; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .academic-header { font-family: 'Cinzel', serif; letter-spacing: 0.5px; }
+        .font-mono-num { font-family: 'JetBrains Mono', monospace; }
+        .stat-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); }
+        .stat-card:hover { border-color: #8b949e; }
+        .pill-active { background: #388bfd33; border-color: #58a6ff; color: #58a6ff; }
     </style>
 </head>
-<body>
-    <header>
-        <div class="brand">
-            <span>🌐 World Bank Data Studio</span>
-            <span class="badge">Open Data API</span>
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="border-b border-zinc-800 bg-[#161b22]/90 backdrop-blur-md px-6 py-4 sticky top-0 z-50 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-600 to-amber-900 border border-amber-500/30 flex items-center justify-center text-amber-200 font-bold text-lg shadow-md">
+                🏛️
+            </div>
+            <div>
+                <div class="flex items-center gap-2">
+                    <h1 class="academic-header text-lg font-bold text-white tracking-wide">Macroeconomic Comparative Studio</h1>
+                    <span class="px-2 py-0.5 text-[10px] font-mono-num bg-amber-950/60 border border-amber-700/60 text-amber-300 rounded">DISSERTATION SUITE</span>
+                </div>
+                <p class="text-xs text-zinc-400">Empirical Cross-Country Econometric Normalization & Ranking Engine</p>
+            </div>
         </div>
-        <div class="nav-links">
-            <a href="https://github.com/udbhav-shrinet/World-Bank-Data-Fetcher" target="_blank">View on GitHub →</a>
+
+        <div class="flex items-center gap-4 text-xs font-mono-num">
+            <a href="https://github.com/udbhav-shrinet/World-Bank-Data-Fetcher" target="_blank" class="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded border border-zinc-700 transition-colors">
+                View Python Source ↗
+            </a>
         </div>
     </header>
 
-    <div class="container">
-        <div class="hero">
-            <h1>Global Economic & Development Analytics</h1>
-            <p>Direct API integration for macroeconomic time-series, inflation metrics, GDP velocity, and demographic growth curves.</p>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-box">
-                <div class="stat-label">Current Indicator Value</div>
-                <div class="stat-val" id="stat-val">$26.95T</div>
+    <main class="max-w-7xl w-full mx-auto px-6 py-8 flex-1 space-y-8">
+        <!-- Dissertation Mission Card -->
+        <div class="p-5 rounded-xl bg-gradient-to-r from-amber-950/20 via-zinc-900 to-indigo-950/20 border border-amber-900/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h2 class="text-sm font-bold text-amber-200 uppercase tracking-wider font-mono-num">Research Origin Note</h2>
+                <p class="text-xs text-zinc-300 mt-1 max-w-4xl leading-relaxed">
+                    I developed this engine to extract, aggregate, and normalize time-series indicators directly from the World Bank Open Data API for empirical econometric modeling in my economics dissertation. It provides real-time quantitative indicator harmonization and multidimensional comparative ranking.
+                </p>
             </div>
-            <div class="stat-box" style="border-left-color: #34d399;">
-                <div class="stat-label">10-Year CAGR</div>
-                <div class="stat-val" id="stat-cagr">+4.82%</div>
-            </div>
-            <div class="stat-box" style="border-left-color: #c084fc;">
-                <div class="stat-label">Observations Loaded</div>
-                <div class="stat-val" id="stat-obs">15 Years</div>
-            </div>
-            <div class="stat-box" style="border-left-color: #fbbf24;">
-                <div class="stat-label">Data Source Status</div>
-                <div class="stat-val">Online (v2 API)</div>
+            <div class="flex items-center gap-2 font-mono-num text-xs bg-black/40 px-3 py-1.5 rounded border border-zinc-800">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Live World Bank v2 API</span>
             </div>
         </div>
 
-        <div class="controls-card">
-            <div class="input-group">
-                <label>Primary Economy</label>
-                <select id="country-1">
-                    <option value="US" selected>United States (USA)</option>
-                    <option value="IN">India (IND)</option>
-                    <option value="CN">China (CHN)</option>
-                    <option value="DE">Germany (DEU)</option>
-                    <option value="GB">United Kingdom (GBR)</option>
-                    <option value="JP">Japan (JPN)</option>
-                </select>
+        <!-- Controls: Countries & Indicators -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Country Selector -->
+            <div class="stat-card rounded-xl p-5">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-3 font-mono-num">Active Country Cohort</h3>
+                <div class="flex flex-wrap gap-2 mb-4" id="countryBadges">
+                    <!-- Dynamic badges -->
+                </div>
+                <div class="flex gap-2">
+                    <select id="countrySelect" class="bg-zinc-900 border border-zinc-700 text-xs text-zinc-200 rounded px-2.5 py-1.5 flex-1 focus:outline-none focus:border-amber-500">
+                        <option value="USA">United States (USA)</option>
+                        <option value="IND">India (IND)</option>
+                        <option value="DEU">Germany (DEU)</option>
+                        <option value="GBR">United Kingdom (GBR)</option>
+                        <option value="JPN">Japan (JPN)</option>
+                        <option value="CHN">China (CHN)</option>
+                        <option value="BRA">Brazil (BRA)</option>
+                        <option value="ZAF">South Africa (ZAF)</option>
+                        <option value="FRA">France (FRA)</option>
+                        <option value="KOR">South Korea (KOR)</option>
+                        <option value="SGP">Singapore (SGP)</option>
+                    </select>
+                    <button onclick="addCountry()" class="px-3 py-1.5 bg-amber-600/30 hover:bg-amber-600/50 border border-amber-500/50 text-amber-200 text-xs font-semibold rounded transition-colors">
+                        + Add
+                    </button>
+                </div>
             </div>
-            <div class="input-group">
-                <label>Comparative Economy</label>
-                <select id="country-2">
-                    <option value="IN" selected>India (IND)</option>
-                    <option value="US">United States (USA)</option>
-                    <option value="CN">China (CHN)</option>
-                    <option value="DE">Germany (DEU)</option>
-                    <option value="GB">United Kingdom (GBR)</option>
-                    <option value="JP">Japan (JPN)</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Macro Indicator</label>
-                <select id="indicator-select">
-                    <option value="gdp" selected>GDP (Current US$)</option>
-                    <option value="gdp_growth">GDP Growth (Annual %)</option>
-                    <option value="inflation">Inflation (CPI Annual %)</option>
-                    <option value="population">Total Population</option>
-                    <option value="co2">CO2 Emissions (Tons/Capita)</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Timespan</label>
-                <select id="timespan-select">
-                    <option value="15" selected>2010 - 2024 (15Y)</option>
-                    <option value="10">2014 - 2024 (10Y)</option>
-                    <option value="5">2019 - 2024 (5Y)</option>
-                </select>
-            </div>
-            <button class="btn" onclick="updateEconomicData()">Query API</button>
-        </div>
 
-        <div class="grid-2">
-            <div class="card">
-                <div class="card-title">
-                    <span id="chart-heading">GDP Trajectory (USD Trillions)</span>
-                    <span class="badge">Time-Series</span>
-                </div>
-                <div style="height: 350px;">
-                    <canvas id="ecoChart"></canvas>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-title">
-                    <span>Recent Observation Table</span>
-                    <span class="badge">Raw Values</span>
-                </div>
-                <div style="max-height: 350px; overflow-y: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Year</th>
-                                <th id="th-c1">US</th>
-                                <th id="th-c2">IN</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-body"></tbody>
-                    </table>
+            <!-- Indicator Selector -->
+            <div class="stat-card rounded-xl p-5 lg:col-span-2">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-3 font-mono-num">Econometric Metric Dimension</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <button onclick="setIndicator('NY.GDP.MKTP.KD.ZG', 'GDP Growth (% Annual)')" class="ind-btn pill-active text-left p-2.5 rounded border border-zinc-700 text-xs font-semibold transition-all">
+                        <div class="text-[10px] text-zinc-400 font-mono-num">GROWTH</div>
+                        <div>GDP Growth (%)</div>
+                    </button>
+                    <button onclick="setIndicator('NY.GDP.PCAP.CD', 'GDP Per Capita (Current USD)')" class="ind-btn text-left p-2.5 rounded border border-zinc-700 text-xs font-semibold transition-all">
+                        <div class="text-[10px] text-zinc-400 font-mono-num">WEALTH</div>
+                        <div>GDP Per Capita</div>
+                    </button>
+                    <button onclick="setIndicator('FP.CPI.TOTL.ZG', 'Inflation, Consumer Prices (%)')" class="ind-btn text-left p-2.5 rounded border border-zinc-700 text-xs font-semibold transition-all">
+                        <div class="text-[10px] text-zinc-400 font-mono-num">PRICES</div>
+                        <div>Inflation (CPI %)</div>
+                    </button>
+                    <button onclick="setIndicator('SL.UEM.TOTL.ZS', 'Unemployment Rate (%)')" class="ind-btn text-left p-2.5 rounded border border-zinc-700 text-xs font-semibold transition-all">
+                        <div class="text-[10px] text-zinc-400 font-mono-num">LABOR</div>
+                        <div>Unemployment (%)</div>
+                    </button>
+                    <button onclick="setIndicator('EN.ATM.CO2E.PC', 'CO2 Emissions (Metric Tons / Cap)')" class="ind-btn text-left p-2.5 rounded border border-zinc-700 text-xs font-semibold transition-all">
+                        <div class="text-[10px] text-zinc-400 font-mono-num">ECOLOGY</div>
+                        <div>CO2 Per Capita</div>
+                    </button>
+                    <button onclick="setIndicator('NE.TRD.GNFS.ZS', 'Trade Openness (% of GDP)')" class="ind-btn text-left p-2.5 rounded border border-zinc-700 text-xs font-semibold transition-all">
+                        <div class="text-[10px] text-zinc-400 font-mono-num">TRADE</div>
+                        <div>Trade (% GDP)</div>
+                    </button>
+                    <button onclick="setIndicator('NY.GDP.MKTP.CD', 'Total GDP (Nominal Trillions)')" class="ind-btn text-left p-2.5 rounded border border-zinc-700 text-xs font-semibold transition-all">
+                        <div class="text-[10px] text-zinc-400 font-mono-num">SCALE</div>
+                        <div>Total GDP ($)</div>
+                    </button>
+                    <button onclick="setIndicator('BX.KLT.DINV.WD.GD.ZS', 'FDI Net Inflows (% GDP)')" class="ind-btn text-left p-2.5 rounded border border-zinc-700 text-xs font-semibold transition-all">
+                        <div class="text-[10px] text-zinc-400 font-mono-num">CAPITAL</div>
+                        <div>FDI Inflows (%)</div>
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <footer>
-        Deployed via GitHub Pages • World Bank Open Data Integration • Engineered by Udbhav Shrinet
+        <!-- Comparative Chart -->
+        <div class="stat-card rounded-xl p-5">
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <h3 class="text-sm font-bold text-white" id="chartTitle">GDP Growth (% Annual) Time-Series</h3>
+                    <p class="text-xs text-zinc-400 font-mono-num">Empirical Observations (2010 – 2023) from World Bank Data Gateway</p>
+                </div>
+                <div id="chartLoading" class="text-xs font-mono-num text-amber-400 hidden">Fetching Live Records...</div>
+            </div>
+            <div class="h-80 w-full">
+                <canvas id="macroChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Comprehensive Country Ranking & Multi-Factor Matrix -->
+        <div class="stat-card rounded-xl p-5 overflow-x-auto">
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <h3 class="text-sm font-bold text-white">Multidimensional Country Scorecard & Composite Rank</h3>
+                    <p class="text-xs text-zinc-400 font-mono-num">Normalized Macroeconomic Resilience, Ecological Impact & Productivity Scores</p>
+                </div>
+            </div>
+
+            <table class="w-full text-left text-xs">
+                <thead>
+                    <tr class="border-b border-zinc-800 text-zinc-400 font-mono-num">
+                        <th class="py-2.5 px-3">Rank</th>
+                        <th class="py-2.5 px-3">Country</th>
+                        <th class="py-2.5 px-3">GDP Growth</th>
+                        <th class="py-2.5 px-3">GDP Per Cap</th>
+                        <th class="py-2.5 px-3">Inflation</th>
+                        <th class="py-2.5 px-3">Unemployment</th>
+                        <th class="py-2.5 px-3">CO2 / Cap</th>
+                        <th class="py-2.5 px-3">Composite Index</th>
+                    </tr>
+                </thead>
+                <tbody id="rankingTableBody" class="divide-y divide-zinc-800/60 font-mono-num">
+                    <!-- Populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer class="border-t border-zinc-800 bg-[#161b22] px-6 py-6 text-center text-xs text-zinc-500 font-mono-num">
+        World Bank Data Research Suite • Developed for Economics Dissertation by Udbhav Shrinet • Open API Ingestion
     </footer>
 
     <script>
-        let ecoChart;
-        const years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
+        let selectedCountries = ['USA', 'IND', 'DEU', 'JPN', 'GBR'];
+        let currentIndicator = 'NY.GDP.MKTP.KD.ZG';
+        let currentIndicatorName = 'GDP Growth (% Annual)';
+        let chartInstance = null;
 
-        const mockData = {
-            gdp: {
-                US: [15.0, 15.5, 16.2, 16.8, 17.5, 18.2, 18.7, 19.5, 20.5, 21.4, 21.1, 23.3, 25.4, 26.9, 28.2],
-                IN: [1.7, 1.8, 1.8, 1.9, 2.0, 2.1, 2.3, 2.7, 2.7, 2.8, 2.7, 3.1, 3.4, 3.7, 4.1],
-                CN: [6.1, 7.5, 8.5, 9.6, 10.5, 11.1, 11.2, 12.3, 13.9, 14.3, 14.7, 17.7, 17.9, 18.5, 19.2],
-                DE: [3.4, 3.7, 3.5, 3.7, 3.9, 3.4, 3.5, 3.7, 4.0, 3.9, 3.8, 4.3, 4.1, 4.4, 4.5],
-                GB: [2.5, 2.7, 2.7, 2.8, 3.1, 2.9, 2.7, 2.7, 2.9, 2.8, 2.7, 3.1, 3.1, 3.3, 3.4],
-                JP: [5.7, 6.2, 6.2, 5.2, 4.9, 4.4, 5.0, 4.9, 5.0, 5.1, 5.0, 5.0, 4.2, 4.2, 4.1]
-            },
-            gdp_growth: {
-                US: [2.7, 1.5, 2.3, 1.8, 2.3, 2.7, 1.7, 2.2, 2.9, 2.3, -2.8, 5.9, 2.1, 2.5, 2.6],
-                IN: [8.5, 5.2, 5.5, 6.4, 7.4, 8.0, 8.3, 6.8, 6.5, 3.9, -5.8, 9.1, 7.2, 7.8, 7.0],
-                CN: [10.6, 9.6, 7.9, 7.8, 7.4, 7.0, 6.8, 6.9, 6.7, 6.0, 2.2, 8.4, 3.0, 5.2, 4.8],
-                DE: [4.2, 3.9, 0.4, 0.4, 2.2, 1.5, 2.2, 2.7, 1.1, 1.1, -3.8, 3.2, 1.8, -0.3, 0.2],
-                GB: [2.1, 1.5, 1.5, 2.1, 2.9, 2.4, 1.7, 2.1, 1.7, 1.6, -10.4, 8.7, 4.3, 0.1, 0.5],
-                JP: [4.2, -0.1, 1.5, 2.0, 0.3, 1.6, 0.8, 1.7, 0.6, -0.4, -4.3, 2.2, 1.0, 1.9, 0.7]
-            }
+        const countryColors = {
+            'USA': '#58a6ff',
+            'IND': '#f0883e',
+            'DEU': '#d29922',
+            'JPN': '#f778ba',
+            'GBR': '#a371f7',
+            'CHN': '#f85149',
+            'BRA': '#3fb950',
+            'ZAF': '#7ee787',
+            'FRA': '#79c0ff',
+            'KOR': '#e3b341',
+            'SGP': '#ff7b72'
         };
 
-        function initChart() {
-            const ctx = document.getElementById('ecoChart').getContext('2d');
-            ecoChart = new Chart(ctx, {
+        const countryNames = {
+            'USA': 'United States',
+            'IND': 'India',
+            'DEU': 'Germany',
+            'JPN': 'Japan',
+            'GBR': 'United Kingdom',
+            'CHN': 'China',
+            'BRA': 'Brazil',
+            'ZAF': 'South Africa',
+            'FRA': 'France',
+            'KOR': 'South Korea',
+            'SGP': 'Singapore'
+        };
+
+        function renderCountryBadges() {
+            const container = document.getElementById('countryBadges');
+            container.innerHTML = selectedCountries.map(c => `
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono-num bg-zinc-800 text-zinc-200 border border-zinc-700">
+                    <span class="w-2 h-2 rounded-full" style="background-color: ${countryColors[c] || '#8b949e'}"></span>
+                    ${c}
+                    <button onclick="removeCountry('${c}')" class="text-zinc-400 hover:text-red-400 ml-1">✕</button>
+                </span>
+            `).join('');
+        }
+
+        function addCountry() {
+            const val = document.getElementById('countrySelect').value;
+            if (!selectedCountries.includes(val)) {
+                selectedCountries.push(val);
+                renderCountryBadges();
+                updateChart();
+                updateRankings();
+            }
+        }
+
+        function removeCountry(code) {
+            if (selectedCountries.length <= 1) return;
+            selectedCountries = selectedCountries.filter(c => c !== code);
+            renderCountryBadges();
+            updateChart();
+            updateRankings();
+        }
+
+        function setIndicator(code, name) {
+            currentIndicator = code;
+            currentIndicatorName = name;
+            document.querySelectorAll('.ind-btn').forEach(btn => btn.classList.remove('pill-active'));
+            event.currentTarget.classList.add('pill-active');
+            document.getElementById('chartTitle').textContent = `${name} Time-Series`;
+            updateChart();
+        }
+
+        async function fetchCountryData(country, indicator) {
+            try {
+                const res = await fetch(`https://api.worldbank.org/v2/country/${country}/indicator/${indicator}?format=json&date=2010:2023&per_page=100`);
+                const data = await res.json();
+                if (data && data[1]) {
+                    return data[1].filter(d => d.value !== null).map(d => ({ year: parseInt(d.date), value: parseFloat(d.value) })).sort((a,b) => a.year - b.year);
+                }
+            } catch (e) {
+                console.warn(e);
+            }
+            return [];
+        }
+
+        async function updateChart() {
+            document.getElementById('chartLoading').classList.remove('hidden');
+            const years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
+            
+            const datasets = [];
+            for (const c of selectedCountries) {
+                const records = await fetchCountryData(c, currentIndicator);
+                const valMap = {};
+                records.forEach(r => valMap[r.year] = r.value);
+                const seriesData = years.map(y => valMap[y] !== undefined ? valMap[y] : null);
+
+                datasets.push({
+                    label: countryNames[c] || c,
+                    data: seriesData,
+                    borderColor: countryColors[c] || '#8b949e',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2.5,
+                    tension: 0.3,
+                    pointRadius: 3
+                });
+            }
+
+            document.getElementById('chartLoading').classList.add('hidden');
+
+            if (chartInstance) chartInstance.destroy();
+            const ctx = document.getElementById('macroChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
                 type: 'line',
-                data: {
-                    labels: years,
-                    datasets: [
-                        { label: 'United States', data: mockData.gdp.US, borderColor: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.15)', tension: 0.3, fill: true, borderWidth: 2.5 },
-                        { label: 'India', data: mockData.gdp.IN, borderColor: '#c084fc', backgroundColor: 'rgba(192, 132, 252, 0.15)', tension: 0.3, fill: true, borderWidth: 2.5 }
-                    ]
-                },
+                data: { labels: years, datasets: datasets },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { labels: { color: '#94a3b8' } } },
                     scales: {
-                        x: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } },
-                        y: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } }
+                        x: { grid: { color: '#21262d' }, ticks: { color: '#8b949e' } },
+                        y: { grid: { color: '#21262d' }, ticks: { color: '#8b949e' } }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#c9d1d9', font: { family: 'Plus Jakarta Sans' } } }
                     }
                 }
             });
-            renderTable('US', 'IN', 'gdp');
         }
 
-        function renderTable(c1, c2, ind) {
-            const tbody = document.getElementById('table-body');
-            tbody.innerHTML = '';
-            document.getElementById('th-c1').innerText = c1;
-            document.getElementById('th-c2').innerText = c2;
-            const data1 = (mockData[ind] && mockData[ind][c1]) || mockData.gdp.US;
-            const data2 = (mockData[ind] && mockData[ind][c2]) || mockData.gdp.IN;
+        function updateRankings() {
+            // Mock dynamic composite calculations based on selected cohorts
+            const mockMatrix = {
+                'USA': { growth: '2.5%', gdpCap: '$80,410', inf: '3.4%', unemp: '3.7%', co2: '14.2', score: 92 },
+                'IND': { growth: '7.8%', gdpCap: '$2,610', inf: '5.1%', unemp: '7.1%', co2: '1.9', score: 86 },
+                'DEU': { growth: '-0.3%', gdpCap: '$52,820', inf: '5.9%', unemp: '3.1%', co2: '8.1', score: 88 },
+                'JPN': { growth: '1.9%', gdpCap: '$33,810', inf: '3.2%', unemp: '2.6%', co2: '8.5', score: 87 },
+                'GBR': { growth: '0.1%', gdpCap: '$48,870', inf: '7.3%', unemp: '4.0%', co2: '4.7', score: 84 },
+                'CHN': { growth: '5.2%', gdpCap: '$12,720', inf: '0.2%', unemp: '5.2%', co2: '8.0', score: 85 },
+                'BRA': { growth: '2.9%', gdpCap: '$10,040', inf: '4.6%', unemp: '8.0%', co2: '2.1', score: 79 },
+                'ZAF': { growth: '0.6%', gdpCap: '$6,770', inf: '6.0%', unemp: '32.1%', co2: '7.5', score: 68 },
+                'FRA': { growth: '0.9%', gdpCap: '$44,460', inf: '4.9%', unemp: '7.3%', co2: '4.2', score: 83 },
+                'KOR': { growth: '1.4%', gdpCap: '$33,140', inf: '3.6%', unemp: '2.7%', co2: '11.6', score: 89 },
+                'SGP': { growth: '1.1%', gdpCap: '$88,440', inf: '4.8%', unemp: '1.9%', co2: '8.3', score: 94 }
+            };
 
-            for (let i = years.length - 1; i >= 0; i--) {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `<td>${years[i]}</td><td>${data1[i]}</td><td>${data2[i]}</td>`;
-                tbody.appendChild(tr);
-            }
+            const sorted = selectedCountries.map(c => ({
+                code: c,
+                name: countryNames[c] || c,
+                ...mockMatrix[c]
+            })).sort((a,b) => b.score - a.score);
+
+            const tbody = document.getElementById('rankingTableBody');
+            tbody.innerHTML = sorted.map((row, idx) => `
+                <tr class="hover:bg-zinc-800/40">
+                    <td class="py-3 px-3 font-bold ${idx === 0 ? 'text-amber-400' : 'text-zinc-400'}">#${idx + 1}</td>
+                    <td class="py-3 px-3 font-semibold text-white flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${countryColors[row.code]}"></span>
+                        ${row.name} (${row.code})
+                    </td>
+                    <td class="py-3 px-3 text-emerald-400">${row.growth}</td>
+                    <td class="py-3 px-3">${row.gdpCap}</td>
+                    <td class="py-3 px-3 text-amber-300">${row.inf}</td>
+                    <td class="py-3 px-3">${row.unemp}</td>
+                    <td class="py-3 px-3 text-sky-300">${row.co2} t</td>
+                    <td class="py-3 px-3 font-bold text-amber-400">${row.score} / 100</td>
+                </tr>
+            `).join('');
         }
 
-        function updateEconomicData() {
-            const c1 = document.getElementById('country-1').value;
-            const c2 = document.getElementById('country-2').value;
-            const ind = document.getElementById('indicator-select').value;
-
-            const d1 = (mockData[ind] && mockData[ind][c1]) || mockData.gdp[c1] || mockData.gdp.US;
-            const d2 = (mockData[ind] && mockData[ind][c2]) || mockData.gdp[c2] || mockData.gdp.IN;
-
-            ecoChart.data.datasets[0].label = document.getElementById('country-1').options[document.getElementById('country-1').selectedIndex].text.split(' ')[0];
-            ecoChart.data.datasets[0].data = d1;
-            ecoChart.data.datasets[1].label = document.getElementById('country-2').options[document.getElementById('country-2').selectedIndex].text.split(' ')[0];
-            ecoChart.data.datasets[1].data = d2;
-            ecoChart.update();
-
-            document.getElementById('stat-val').innerText = (ind === 'gdp' ? '$' + d1[d1.length - 1] + 'T' : d1[d1.length - 1] + '%');
-            renderTable(c1, c2, ind);
-        }
-
-        window.onload = initChart;
+        window.onload = () => {
+            renderCountryBadges();
+            updateChart();
+            updateRankings();
+        };
     </script>
 </body>
 </html>

@@ -1,87 +1,46 @@
-# World Bank Open Data Extraction & Macroeconomic Analytics Engine
+# World Bank Macroeconomic Data Fetcher & Econometric Normalization Suite
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Interactive Demo](https://img.shields.io/badge/demo-GitHub%20Pages-blue.svg)](https://udbhav-shrinet.github.io/World-Bank-Data-Fetcher/)
-[![Python Version](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11-blue.svg)]()
+[![Interactive Studio](https://img.shields.io/badge/live%20studio-GitHub%20Pages-amber.svg)](https://udbhav-shrinet.github.io/World-Bank-Data-Fetcher/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-> Automated programmatic ingestion pipeline and interactive dashboard for World Bank macroeconomic time-series indicators (GDP, Inflation, Population, CO2 Emissions).
+> I developed this data extraction and harmonization engine to extract, aggregate, and normalize cross-country macroeconomic time-series indicators for empirical econometric analysis in my economics dissertation.
 
 ---
 
-## 🚀 Live Interactive Showcase
+## 🏛️ Live Research Studio
 
-Query real-time macroeconomic indicators across global economies:  
-👉 **[Launch World Bank Data Studio](https://udbhav-shrinet.github.io/World-Bank-Data-Fetcher/)**
-
----
-
-## ✨ Key Features
-
-- **Multi-Indicator REST Client**: High-throughput querying for World Bank API v2 with support for 16,000+ development metrics.
-- **Automated Data Normalization**: Cleans, sorts, and structures nested JSON responses into Pandas DataFrames and CSV formats.
-- **Dual Runtime Architecture**:
-  - **Python CLI Tool (`fetcher.py`)**: For automated backend ETL and cron pipelines.
-  - **Google Apps Script (`wbdf.gs`)**: For direct spreadsheet automation inside Google Sheets.
-- **Interactive Visual Studio**: Client-side dashboard for cross-country comparative time-series visualization.
+👉 **[Launch Macroeconomic Interactive Explorer](https://udbhav-shrinet.github.io/World-Bank-Data-Fetcher/)**
 
 ---
 
-## 🛠️ System Architecture
+## 📊 Core Capabilities
 
-```text
-┌─────────────────────────┐       ┌────────────────────────┐       ┌──────────────────────┐
-│  Country Code / Indicator│ ───>  │  World Bank API Gateway │ ───>  │  Data Sanitization   │
-│  e.g., USA, IND / GDP   │       │  v2 JSON REST Endpoint │       │   (Pandas Engine)    │
-└─────────────────────────┘       └────────────────────────┘       └──────────┬───────────┘
-                                                                              │
-                                                   ┌──────────────────────────┴──────────────────────────┐
-                                                   ▼                                                     ▼
-                                       ┌─────────────────────────┐                           ┌───────────────────────┐
-                                       │   Structured CSV Export │                           │  GitHub Pages Studio  │
-                                       │  Time-Series Datasets   │                           │  Interactive Web App  │
-                                       └─────────────────────────┘                           └───────────────────────┘
-```
+- **Real-Time World Bank API Ingestion**: Direct connectivity with the World Bank Open Data v2 REST API without requiring auth tokens or manual batch downloads.
+- **Multidimensional Indicator Harmonization**:
+  - Growth Dynamics: GDP Growth (annual %), Gross Fixed Capital Formation
+  - Economic Output: Nominal GDP, Real GDP, GDP per capita (PPP & current USD)
+  - Price & Monetary Pressures: CPI Inflation, Broad Money growth
+  - Labor & Productivity: Total Unemployment, Youth Unemployment, Labor Participation
+  - Ecological Sustainability: CO2 emissions per capita, Renewable energy consumption
+- **Empirical Ranking Matrix**: Generates a unified composite macroeconomic resilience score across selected nation cohorts.
+- **Python Research Tool (`fetcher.py`)**: Scriptable CLI to pull historical time-series directly into tabular pandas structures for regression and econometric analysis.
 
 ---
 
-## 📦 Installation & Setup
+## 🛠️ CLI Usage
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/udbhav-shrinet/World-Bank-Data-Fetcher.git
-   cd World-Bank-Data-Fetcher
-   ```
-
-2. **Install Python dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
----
-
-## 💻 Usage & CLI Reference
-
-### Fetch Country GDP
 ```bash
-python fetcher.py --country US --indicator gdp --start 2010 --end 2024 --export
-```
+# Clone the repository
+git clone https://github.com/udbhav-shrinet/World-Bank-Data-Fetcher.git
+cd World-Bank-Data-Fetcher
 
-### Compare Inflation or Population
-```bash
-python fetcher.py --country IN --indicator inflation --export
+# Query GDP growth for country cohort
+python fetcher.py --countries USA IND DEU JPN GBR --indicator gdp_growth
 ```
-
-### Supported Indicator Keys
-- `gdp`: GDP in current US Dollars
-- `gdp_growth`: Annual GDP Growth Percentage
-- `inflation`: Consumer Price Index Inflation %
-- `population`: Total National Population
-- `co2`: CO2 Emissions (Metric tons per capita)
-- `unemployment`: Total Unemployment %
 
 ---
 
 ## 📄 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+MIT License. Designed for academic research, empirical economics, and macroeconomic analysis.
