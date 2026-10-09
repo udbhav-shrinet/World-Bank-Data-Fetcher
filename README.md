@@ -1,54 +1,87 @@
-<h1>Economic Data Fetcher for Google Sheets</h1>
+# World Bank Open Data Extraction & Macroeconomic Analytics Engine
 
-<h2>Overview</h2>
-<p>The Economic Data Fetcher script is designed to pull economic data from the World Bank API into a Google Sheets spreadsheet. It fetches data for various economic indicators across a list of countries for the years 2000 to 2024. This script automates the process of gathering economic data, making it easier for analysts, students, and researchers to analyze global economic trends.</p>
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+[![Interactive Demo](https://img.shields.io/badge/demo-GitHub%20Pages-blue.svg)](https://udbhav-shrinet.github.io/World-Bank-Data-Fetcher/)
+[![Python Version](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11-blue.svg)]()
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-<h2>Features</h2>
-<ul>
-  <li>Fetches economic data for multiple countries.</li>
-  <li>Supports a wide range of economic indicators, including GDP growth, inflation rate, unemployment, and more.</li>
-  <li>Automatically adds a new sheet for each indicator in Google Sheets.</li>
-  <li>Data is retrieved from the World Bank API for the years 2000 to 2024.</li>
-  <li>Missing data is filled with 'N/A' for years with no available data.</li>
-</ul>
+> Automated programmatic ingestion pipeline and interactive dashboard for World Bank macroeconomic time-series indicators (GDP, Inflation, Population, CO2 Emissions).
 
-<h2>Indicators Available</h2>
-<p>The following economic indicators are fetched:</p>
-<ul>
-  <li><strong>Real GDP Growth</strong> (NY.GDP.MKTP.KD.ZG)</li>
-  <li><strong>Inflation Rate</strong> (FP.CPI.TOTL.ZG)</li>
-  <li><strong>Unemployment Rate</strong> (SL.UEM.TOTL.ZS)</li>
-  <li><strong>Exports of Goods and Services</strong> (NE.EXP.GNFS.ZS)</li>
-  <li><strong>Imports of Goods and Services</strong> (NE.IMP.GNFS.ZS)</li>
-  <li><strong>Total Tax Revenue</strong> (GC.TAX.TOTL.GD.ZS)</li>
-  <li><strong>Broad Money Growth</strong> (FM.LBL.BMNY.ZG)</li>
-  <li><strong>Poverty Headcount Ratio</strong> (SI.POV.DDAY)</li>
-  <li><strong>Income Inequality (Gini Index)</strong> (SI.POV.GINI)</li>
-  <li><strong>Energy Use per Capita</strong> (EG.USE.PCAP.KG.OE)</li>
-  <li><strong>Under-5 Mortality Rate</strong> (SH.DYN.MORT)</li>
-  <li><strong>Labor Force Participation Rate</strong> (SL.TLF.TOTL.IN)</li>
-  <li><strong>FDI Net Inflows (% of GDP)</strong> (BX.KLT.DINV.WD.GD.ZS)</li>
-  <li><strong>Internet Users (% of Population)</strong> (IT.NET.USER.ZS)</li>
-  <li><strong>Mobile Cellular Subscriptions</strong> (IT.CEL.SETS.P2)</li>
-</ul>
+---
 
-<h2>Requirements</h2>
-<ul>
-  <li>Google Sheets with access to Google Apps Script.</li>
-  <li>Internet connection for fetching data from the World Bank API.</li>
-</ul>
+## 🚀 Live Interactive Showcase
 
-<h2>How to Use</h2>
-<ol>
-  <li>Open a new Google Sheets document.</li>
-  <li>Go to <strong>Extensions &gt; Apps Script</strong> to open the Google Apps Script editor.</li>
-  <li>Paste the code from this repository into the script editor.</li>
-  <li>Save the script.</li>
-  <li>Run the <code>fetchEconomicData()</code> function to begin fetching the data. This will automatically create new sheets in your Google Sheets document, each containing the data for one economic indicator.</li>
-</ol>
+Query real-time macroeconomic indicators across global economies:  
+👉 **[Launch World Bank Data Studio](https://udbhav-shrinet.github.io/World-Bank-Data-Fetcher/)**
 
-<h3>Permissions</h3>
-<p>The script uses <code>UrlFetchApp</code> to request data from the World Bank API. Make sure to grant necessary permissions when prompted by Google.</p>
+---
 
-<h2>Example Output</h2>
-<p>After running the script, your Google Sheet will contain a separate sheet for each economic indicator, populated with data for the countries and years 2000-2024.</p>
+## ✨ Key Features
+
+- **Multi-Indicator REST Client**: High-throughput querying for World Bank API v2 with support for 16,000+ development metrics.
+- **Automated Data Normalization**: Cleans, sorts, and structures nested JSON responses into Pandas DataFrames and CSV formats.
+- **Dual Runtime Architecture**:
+  - **Python CLI Tool (`fetcher.py`)**: For automated backend ETL and cron pipelines.
+  - **Google Apps Script (`wbdf.gs`)**: For direct spreadsheet automation inside Google Sheets.
+- **Interactive Visual Studio**: Client-side dashboard for cross-country comparative time-series visualization.
+
+---
+
+## 🛠️ System Architecture
+
+```text
+┌─────────────────────────┐       ┌────────────────────────┐       ┌──────────────────────┐
+│  Country Code / Indicator│ ───>  │  World Bank API Gateway │ ───>  │  Data Sanitization   │
+│  e.g., USA, IND / GDP   │       │  v2 JSON REST Endpoint │       │   (Pandas Engine)    │
+└─────────────────────────┘       └────────────────────────┘       └──────────┬───────────┘
+                                                                              │
+                                                   ┌──────────────────────────┴──────────────────────────┐
+                                                   ▼                                                     ▼
+                                       ┌─────────────────────────┐                           ┌───────────────────────┐
+                                       │   Structured CSV Export │                           │  GitHub Pages Studio  │
+                                       │  Time-Series Datasets   │                           │  Interactive Web App  │
+                                       └─────────────────────────┘                           └───────────────────────┘
+```
+
+---
+
+## 📦 Installation & Setup
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/udbhav-shrinet/World-Bank-Data-Fetcher.git
+   cd World-Bank-Data-Fetcher
+   ```
+
+2. **Install Python dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## 💻 Usage & CLI Reference
+
+### Fetch Country GDP
+```bash
+python fetcher.py --country US --indicator gdp --start 2010 --end 2024 --export
+```
+
+### Compare Inflation or Population
+```bash
+python fetcher.py --country IN --indicator inflation --export
+```
+
+### Supported Indicator Keys
+- `gdp`: GDP in current US Dollars
+- `gdp_growth`: Annual GDP Growth Percentage
+- `inflation`: Consumer Price Index Inflation %
+- `population`: Total National Population
+- `co2`: CO2 Emissions (Metric tons per capita)
+- `unemployment`: Total Unemployment %
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
